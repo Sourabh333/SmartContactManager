@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org"
+	th:replace="/normal/userbase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>This is home</title>
+
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="card">
+				<div class="card-body my-5">
+					<div th:if="${session.message}"
+						th:classappend="${'alert-'+session.message.type}"
+						class="alert alert-success text-center" role="alert">
+
+						<span th:text="${session.message.content}"></span>
+						<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+					</div>
+					<div class="container text-center">
+						<img src="" style="height: 200px; width: 200px; border-radius: 0%"
+							th:src="@{/images/callimage.png}" alt="profile_photo">
+
+						<h1 class="text-center my-3 text-secondary font-italic">Star
+							Adding Your Contact</h1>
+
+						<a th:href="@{/user/addcontact}" type="button"
+							class="btn btn-outline-success">Add Contact </a>
+
+					</div>
+				</div>
+			</div>
+			</div>
+	</section>
+</body>
+</html>

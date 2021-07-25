@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>This is home</title>
+
+</head>
+<body>
+	<section>
+		<div id="login">
+			<div class="container">
+				<div id="login-row"
+					class="row justify-content-center align-items-center text-center">
+					<div id="login-column" class="col-md-6">
+						<div id="login-box" class="col-md-18" style="height: 250px">
+							<div class="alert alert-success" role="alert">We Have sent OTP to Your Email
+							</div>
+							<h3 class="text-center">Enter OTP sent</h3>
+							<form th:action="@{/send-otp}" method="POST">
+
+								<!-- Email field -->
+								<div class="form-group mt-2">
+
+									<input required name="otp" type="number" class="form-control"
+										placeholder="Enter otp here">
+								</div>
+								<div class="container text-center mt-2">
+									<button type="reset" class="btn btn-success">Verify</button>
+
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

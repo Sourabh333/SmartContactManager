@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org" th:replace="/normal/userbase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>This is home</title>
+
+</head>
+<body>
+<section>
+<div class="card m-2">
+<div th:if="${session.message}" th:classappend="${'alert-'+session.message.type}" class="alert alert-success text-center" role="alert">
+		
+				<span th:text="${session.message.content}"></span>	
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				
+		</div>
+		
+<div class="card-body">
+
+<h1 class="text-center"	>Your Contacts</h1>
+
+<table class="table m-2" >
+  <thead>
+    <tr>
+      <th scope="col">Contact ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr th:each="c : ${contacts}">
+      <th scope="row" th:text="${'SCM2020'+c.cid}"></th>
+      <td >
+      	<img th:if="${c.imageUrl != NULL}" src="" class="my-profile-picture" th:src="@{'/images/'+${c.imageUrl}}" alt="profile_photo">
+      	<img th:if="${c.imageUrl == NULL}" src="" class="my-profile-picture" th:src="@{/images/user_icon.jfif}" alt="profile_photo">
+      	<span th:text="${c.name}"></span></td>
+      <td>
+      	<a th:href="@{'/user/contact/'+${c.cid}}">
+      		<span th:text="${c.email}"></span>
+      	</a> 
+      </td>
+      <td th:text="${c.phone}"></td>
+      <td >
+      <a  th:onclick="|deleteContact(${c.cid})|" class="btn btn-danger btn-sm">Delete</a>
+     <form th:action="@{'/user/open-contact/'+${c.cid}}" class="mt-2" method="post">
+      <button type="submit" class="btn btn-success btn-sm">Update</button>
+      </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- Pagination -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li th:if="${curpage != 0}" class="page-item"><a class="page-link" th:href="@{'/user/show-contacts/'+${curpage-1}}">Previous</a></li>
+    <li th:classappend="${curpage==i-1}?'active'" class="page-item" th:each="i : ${#numbers.sequence(1,totalpage)}"><a class="page-link" th:href="@{'/user/show-contacts/'+${i-1}}"><span th:text="${i}"></span></a></li>
+    <li th:if="${curpage + 1 != totalpage}" class="page-item"><a class="page-link" th:href="@{'/user/show-contacts/'+${curpage+1}}">Next</a></li>
+  </ul>
+</nav>
+
+</div>
+</div>
+
+</section>
+</body>
+</html>

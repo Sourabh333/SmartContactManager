@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>This is home</title>
+
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card mt-2">
+						<div th:if="${session.msg}" th:classappend="${session.msg.type}" class="alert" role="alert">
+							<p class="text-center" th:text="${session.msg.content}"></p>
+							<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+							</div>
+						<div class="conatainer text-center">
+							<img alt="" src="" th:src="@{/images/registericon.png}"
+								style="width: 50px">
+						</div>
+						<h1 class="text-center">Register Here!!</h1>
+						<form action="" th:action="@{/do_register}" method="post"
+							th:object="${user}">
+
+							<!-- Name Field -->
+							<div class="form-group">
+								<label for="exampleInputEmail1">Name</label> <input type="text"
+									name="name" class="form-control" id="uname"
+									aria-describedby="emailHelp" placeholder="Enter  Name"
+									required="true" th:value="${user.name}">
+
+							</div>
+							<!-- Email Field -->
+							<div class="form-group">
+								<label for="exampleInputEmail1">Email</label> <input
+									name="email" type="email" class="form-control" id="uemail"
+									aria-describedby="emailHelp" placeholder="Enter Email"
+									required="true" th:value="${user.email}">
+							</div>
+							<!-- Password Field -->
+							<div class="form-group">
+								<label for="exampleInputEmail1">Password</label> <input
+									name="password" type="Password" class="form-control"
+									id="password" aria-describedby="emailHelp"
+									placeholder="Enter Password" required="true">
+							</div>
+							<!-- About Field -->
+							<div class="form-group">
+								<label for="exampleInputEmail1">About</label>
+								<textarea name="about" type="text" rows="4" class="form-control"
+									id="uabout" aria-describedby="emailHelp"
+									placeholder="Enter About Yourself" th:value="${user.about}">
+									</textarea>
+							</div>
+							<div class="form-check">
+								<input name="ucheck" type="checkbox" class="form-check-input"
+									id="ucheck"> <label class="form-check-label"
+									for="exampleCheck1">Check me out</label>
+							</div>
+							<div class="container text-center">
+								<button type="submit"
+									class="btn bg-primary btn-block text-white">Submit</button>
+								<button type="reset" class="btn btn-warning text-white">
+									Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

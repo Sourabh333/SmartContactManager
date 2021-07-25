@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org"
+	th:replace="/normal/userbase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>This is home</title>
+
+</head>
+<body>
+	<section>
+		<div class="card ml-1 mr-1">
+		
+<div th:if="${session.message}" th:classappend="${'alert-'+session.message.type}" class="alert alert-success text-center" role="alert">
+		
+				<span th:text="${session.message.content}"></span>	
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				
+		</div>
+		
+			<div class="card-body "th:if="${contact}">
+				<div class="container text-center">
+					<img th:if="${contact.imageUrl != NULL}" src=""
+						style="height: 150px; width: 150px; border-radius: 50%"
+						th:src="@{'/images/'+${contact.imageUrl}}" alt="profile_photo">
+					<img th:if="${contact.imageUrl == NULL}" src=""
+						style="height: 150px; width: 150px; border-radius: 50%;"
+						th:src="@{/images/user_icon.jfif}" alt="profile_photo">
+			
+					<h3 class="m-2" th:text="${contact.name}"></h3>
+				
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col"><span th:text="${contact.cid}"></span></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">Email</th>
+										<td><span th:text="${contact.email}"></span></td>
+									</tr>
+									<tr>
+										<th scope="row">Phone</th>
+										<td><span th:text="${contact.Phone}"></span></td>
+									</tr>
+									<tr>
+										<th scope="row">Work</th>
+										<td><span th:text="${contact.Work}"></span></td>
+									</tr>
+									
+								</tbody>
+					</table>
+					<div class="description"></div>
+					<th:block th:text="${contact.description}">
+				</div>
+				<div class="container text-center  ">
+				 <button  th:onclick="|deleteContact(${contact.cid})|" class="btn btn-danger btn-block">Delete</button>
+      			 <form th:action="@{'/user/open-contact/'+${contact.cid}}" class="mt-2" method="post">
+      <button type="submit" class="btn btn-success btn-block">Update</button>
+      </form>
+			</div>
+			
+			<h1 th:unless="${contact}">You Do not have permission</h1>
+		</div>
+		</div>
+	</section>
+</body>
+</html>

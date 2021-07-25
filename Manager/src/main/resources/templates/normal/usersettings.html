@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org"
+	th:replace="/normal/userbase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Settings</title>
+
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div th:if="${session.message}"
+							th:classappend="${'alert-'+session.message.type}"
+							class="alert alert-success text-center" role="alert">
+
+							<span th:text="${session.message.content}"></span>
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+						</div>
+						<div class="card-body">
+							<h3 class="mt-2">Change Password</h3>
+							<form th:action="@{/user/change-password}" method="POST">
+
+								<!-- Old Password field -->
+								<div class="form-group mt-2">
+
+									<input name="oldpass" type="text" class="form-control"
+										placeholder="Old Password">
+								</div>
+
+
+								<!-- New Password -->
+								<div class="form-group mt-2">
+									<input name="newpass" type="text" class="form-control"
+										placeholder="New Password">
+								</div>
+
+								<div class="container text-center mt-2">
+									<button type="submit" class="btn btn-success">Change</button>
+									<button type="reset" class="btn btn-warning">Reset</button>
+
+								</div>
+							</form>
+						</div>
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+		</section>
+</body>
+</html>
